@@ -141,34 +141,25 @@ class HBNBCommand(cmd.Cmd):
             key, raw_value = key_value
             value = None
 
-            # Parse the value based on the syntax
             if raw_value.startswith('"') and raw_value.endswith('"'):
-                # String: remove double quotes and replace underscores with spaces
                 value = raw_value[1:-1].replace('_', ' ')
             elif '.' in raw_value:
-                # Float
                 try:
                     value = float(raw_value)
                 except ValueError:
                     print("** invalid float value: {} **".format(raw_value))
                     return
             else:
-                # Integer: default case
                 try:
                     value = int(raw_value)
                 except ValueError:
                     print("** invalid integer value: {} **".format(raw_value))
                     return
-
-            # Add the key-value pair to the dictionary
             params[key] = value
-
-        # Create a new instance with the parameters
         new_instance = HBNBCommand.classes[class_name](**params)
         storage.save()
         print(new_instance.id)
         storage.save()
-
 
     def help_create(self):
         """ Help information for the create method """
@@ -231,7 +222,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -364,5 +355,7 @@ class HBNBCommand(cmd.Cmd):
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
 
+
 if __name__ == "__main__":
+
     HBNBCommand().cmdloop()
